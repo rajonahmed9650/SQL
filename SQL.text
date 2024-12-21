@@ -1,0 +1,76 @@
+    CREATE DATABASE doctor;
+    USE doctor;
+
+   CREATE TABLE Departments(
+        DepartmentId INT AUTO_INCREMENT PRIMARY KEY,
+        Name VARCHAR(50),
+        Location VARCHAR(50)
+    );
+
+    CREATE TABLE Doctors (
+        DoctorId INT AUTO_INCREMENT PRIMARY KEY,
+        Name VARCHAR(50),
+        Specialization VARCHAR(100),
+        Phone VARCHAR(15),
+        DepartmentID INT,
+        FOREIGN KEY (DepartmentID) REFERENCES Departments(DepartmentID)
+    );
+
+    CREATE TABLE Patients(
+        PatientId INT AUTO_INCREMENT PRIMARY KEY,
+        Name VARCHAR(20),
+        Age INT,
+        Gender VARCHAR(10),
+        Phone VARCHAR(15)
+    );
+
+    CREATE TABLE Appointments (
+        AppointmentsID INT AUTO_INCREMENT PRIMARY KEY,
+        Date DATE,
+        Time TIME,
+        Status VARCHAR(20),
+        PatientId INT,
+        DoctorId INT,
+        FOREIGN KEY (PatientId) REFERENCES Patients(PatientId),
+        FOREIGN KEY (DoctorId) REFERENCES Doctors(DoctorId)
+    );
+   
+    INSERT INTO Doctors (Name, Specialization, Phone, DepartmentID)
+    VALUES
+    ('Sakib', 'Cardiology', '1234567890', 1),
+    ('Tamim', 'Neurology', '0987654321', 2),
+    ('Musfik', 'Pediatrics', '1122334455', 3),
+    ('Riyd', 'Orthopedics', '2233445566', 4),
+    ('Taskin', 'Dermatology', '3344556677', 5);
+
+    SELECT * FROM Doctors;
+
+    INSERT INTO Patients (Name, Age, Gender, Phone)
+    VALUES
+    ('A', 25, 'Female', '5551234567'),
+    ('J', 30, 'Male', '5552345678'),
+    ('S', 35, 'Female', '5553456789'),
+    ('M', 40, 'Male', '5554567890'),
+    ('E', 29, 'Female', '5555678901');
+
+    SELECT * FROM Patients;
+
+    INSERT INTO Appointments (Date, Time, Status, PatientID, DoctorID) 
+    VALUES
+    ('2024-12-20', '10:00:00', 'Scheduled', 1, 1),
+    ('2024-12-20', '11:00:00', 'Scheduled', 2, 2),
+    ('2024-12-21', '14:00:00', 'Scheduled', 3, 3),
+    ('2024-12-21', '15:00:00', 'Scheduled', 4, 4),
+    ('2024-12-22', '09:00:00', 'Scheduled', 5, 5);
+    
+    SELECT * FROM Appointments;
+
+    INSERT INTO Departments (Name, Location) 
+    VALUES
+    ('Cardiology', 'Building A, 1st Floor'),
+    ('Neurology', 'Building B, 2nd Floor'),
+    ('Pediatrics', 'Building C, 3rd Floor'),
+    ('Orthopedics', 'Building D, 4th Floor'),
+    ('Dermatology', 'Building E, 5th Floor');
+
+    SELECT * FROM Departments;
